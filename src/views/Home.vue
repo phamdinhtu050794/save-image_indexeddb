@@ -1,8 +1,8 @@
 <template>
     <div class="home">
-        <div v-for="(item, idx) in items" :key="idx">
+        <div v-for="(previewImage, id) in items" :key="id">
             <Images
-                :item="item"
+                :previewImage="previewImage"
                  @delete="deleteItem" 
                  @edit="editItem" 
             ></Images>
@@ -18,6 +18,11 @@ export default {
     components:{
         Images
     },
+    data(){
+        return{
+            previewImage:''
+        }
+    },
     computed:{
         items(){
             return this.$store.state.items;
@@ -27,19 +32,20 @@ export default {
     created(){
         this.$store.dispatch('getItems');
     },
+    
 
     methods:{
         addItem(){
             this.$router.push({name:'EditImages'});
         },
-        async deteleItem(item){
-            console.log('delete', item.id);
-            await this.$store.dispatch('deleteItem', item);
+        async deleteItem(previewImage){
+            console.log('delete', previewImage.id);
+            await this.$store.dispatch('deleteItem', previewImage);
             this.$store.dispatch('getItems');
         },
-        editItem(item){
-            console.log('edit', item.id);
-            this.$router.push({name: 'EditImages', params:{item:item}});
+        editItem(previewImage){
+            console.log('edit', previewImage.id);
+            this.$router.push({name: 'EditImages', params:{previewImage:previewImage}});
         }
     }
 }

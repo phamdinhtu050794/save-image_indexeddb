@@ -12,9 +12,9 @@ export default new Vuex.Store({
   },
   actions: {
 
-    async deleteItem(context, item){
-      console.log('store is being asked to delete '+ item.id);
-      await iddb.deleteItem(item);
+    async deleteItem(context, previewImage){
+      console.log('store is being asked to delete '+ previewImage.id);
+      await iddb.deleteItem(previewImage);
     },
     async getItems(context){
       context.state.items =[];
@@ -24,8 +24,8 @@ export default new Vuex.Store({
       });
     },
 
-    async saveItem(context, item){
-      await iddb.saveItem(item)
+    async saveItem(context, previewImage){
+      await iddb.saveItem(previewImage)
     },
   },
   modules: {
